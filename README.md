@@ -84,7 +84,7 @@ The ensemble combines three complementary branches with a learnable dynamic fusi
 
 | Role | Dataset | Size | Source |
 |:---:|:---|:---|:---|
-| **Train & In-Dist Test** | Brain Tumor MRI Dataset | 5,712 train / 1,311 test (4 classes) | [Kaggle](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset) |
+| **Train & In-Dist Test** | Brain Tumor MRI Dataset | 5600 train / 1400 test (4 classes) | [Kaggle](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset) |
 | **External Validation** | BRISC2025 | 1,000 test images (unseen domain) | [Kaggle](https://www.kaggle.com/datasets/briscdataset/brisc2025/) |
 
 **Classes**: `glioma`, `meningioma`, `notumor` (mapped from BRISC2025's `no_tumor`), `pituitary`
