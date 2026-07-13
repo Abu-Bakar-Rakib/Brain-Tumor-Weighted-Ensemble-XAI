@@ -11,7 +11,7 @@
 
 ## 📌 Overview
 
-This repository presents a comprehensive deep learning framework for brain tumor classification on MRI scans. It combines **seven baseline CNN/transfer-learning architectures** with a novel **Dynamic Weighted Fusion Ensemble** (ResNet50 + EfficientNetB5 + custom MRI-designed CNN) for robust 4-class tumor classification. The framework includes extensive evaluation metrics, explainable AI (XAI) methods, and external cross-dataset validation on BRISC2025.
+This repository presents a comprehensive deep learning framework for brain tumor classification on MRI scans. It combines **six baseline CNN/transfer-learning architectures** with a novel **Dynamic Weighted Fusion Ensemble**.
 
 **First public release** (`v1.0.0`) — all models trained and evaluated on Kaggle T4 x2, with full reproducibility.
 
@@ -19,7 +19,7 @@ This repository presents a comprehensive deep learning framework for brain tumor
 
 ## ✨ Key Features
 
-- 🏗️ **7 Baseline Models**: CNN (from scratch), EfficientNetB0, MobileNetV3-Large, ResNet50, ConvNeXt-Tiny, InceptionV3, Xception
+- 🏗️ **6 Baseline Models**: CNN (from scratch), EfficientNetB0, MobileNetV3-Large, ResNet50, ConvNeXt-Tiny, Xception
 - 🔗 **Novel Proposed Model**: 3-branch dynamic weighted fusion ensemble with learnable, softmax-normalized fusion weights
 - 📊 **Comprehensive Evaluation**: Classification reports, confusion matrices, ROC-AUC (one-vs-rest + micro), loss/accuracy curves, calibration plots — all metrics to 4 decimal places
 - 🎨 **4 XAI Methods**: Grad-CAM++, Score-CAM, Eigen-CAM, Attention Rollout (CNN-adapted)
@@ -34,8 +34,8 @@ The ensemble combines three complementary branches with a learnable dynamic fusi
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     INPUT MRI IMAGE                             │
-│                    (224×224×3, Preprocessed)                    │
+│                     INPUT MRI IMAGE                              │
+│                    (224×224×3, Preprocessed)                     │
 └─────────────────────────┬───────────────────────────────────────┘
                           │
         ┌─────────────────┼─────────────────┐
@@ -57,22 +57,22 @@ The ensemble combines three complementary branches with a learnable dynamic fusi
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │    DYNAMIC WEIGHTED FUSION      │
+        │    DYNAMIC WEIGHTED FUSION       │
         │  (Learnable: w₁, w₂, w₃)        │
         │   Output = Σ wᵢ × Embeddingᵢ    │
-        └─────────────────┬───────────────┘
+        └─────────────────┬─────────────────┘
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │     FULLY CONNECTED LAYERS      │
-        │      (512 → 256 → 128 → 4)      │
-        └─────────────────┬───────────────┘
+        │     FULLY CONNECTED LAYERS       │
+        │      (512 → 256 → 128 → 4)       │
+        └─────────────────┬─────────────────┘
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │       SOFTMAX OUTPUT            │
-        │   [Glioma | Meningioma |        │
-        │    Pituitary | No Tumor]        │
+        │       SOFTMAX OUTPUT             │
+        │   [Glioma | Meningioma |         │
+        │    Pituitary | No Tumor]         │
         └─────────────────────────────────┘
 ```
 
@@ -98,7 +98,14 @@ brain-tumor-weighted-ensemble-xai/
 ├── README.md                            # This file
 ├── notebooks/
 │   └── mri-brain.ipynb                  # Full end-to-end pipeline (Kaggle)
-├── MRI
+├── outputs/                             # Generated at runtime (not in repo)
+│   ├── eda/                             # Class distribution, sample grids
+│   ├── baselines/<model_name>/          # Per-baseline: report, CM, ROC, loss, calibration
+│   ├── proposed/                        # Proposed model: report, CM, ROC, loss, calibration
+│   ├── xai/                             # XAI visualizations (Grad-CAM++, Score-CAM, etc.)
+│   ├── external_validation/             # BRISC2025 cross-dataset results
+│   └── summary/                         # Aggregated comparison & charts
+└── models/                              # Saved .keras checkpoints (best weights)
 ```
 
 ---
@@ -116,7 +123,7 @@ brain-tumor-weighted-ensemble-xai/
 4. Import or paste `notebooks/mri-brain.ipynb`
 5. Execute from top to bottom:
    - Exploratory Data Analysis (EDA)
-   - Baseline model training (7 models with early stopping, patience=7)
+   - Baseline model training (6 models with early stopping, patience=7)
    - Proposed model training
    - XAI analysis
    - External validation on BRISC2025
@@ -141,9 +148,8 @@ brain-tumor-weighted-ensemble-xai/
 | MobileNetV3-Large | 0.9306 | 0.9339 | 0.9306 | 0.9300 | 0.9899 | 0.9897 |
 | ResNet50 | 0.9444 | 0.9479 | 0.9444 | 0.9429 | 0.9912 | 0.9881 |
 | ConvNeXt-Tiny | 0.9431 | 0.9468 | 0.9431 | 0.9419 | 0.9896 | 0.9877 |
-| InceptionV3 | **0.9550** | 0.9575 | 0.9550 | **0.9540** | 0.9939 | 0.9928 |
 | Xception | 0.9475 | 0.9503 | 0.9475 | 0.9463 | 0.9920 | 0.9889 |
-| **🔗 Proposed (Weighted Fusion)** | 0.9494 | **0.9528** | 0.9494 | 0.9481 | **0.9940** | **0.9902** |
+| **🔗 Proposed (Weighted Fusion)** | 0.9494 | 0.9528 | 0.9494 | 0.9481 | **0.9940** | **0.9902** |
 
 ### Cross-Dataset Validation
 **BRISC2025, 1,000 fully unseen images**
@@ -155,13 +161,12 @@ brain-tumor-weighted-ensemble-xai/
 | MobileNetV3-Large | 0.952 | 0.9482 | 0.9953 |
 | ResNet50 | 0.967 | 0.9608 | 0.9988 |
 | ConvNeXt-Tiny | 0.951 | 0.9377 | 0.9946 |
-| InceptionV3 | 0.966 | 0.9572 | 0.9986 |
 | Xception | 0.980 | 0.9803 | 0.9991 |
 | **🔗 Proposed (Weighted Fusion)** | **0.982** | **0.9823** | 0.9978 |
 
 ### Key Findings
 
-✅ **In-distribution**: InceptionV3 achieves marginally higher accuracy (0.9550 vs 0.9494), but the proposed model leads in ROC-AUC (0.9940 vs 0.9939)
+✅ **In-distribution**: The proposed model achieves strong ROC-AUC (0.9940 vs 0.9902 micro), demonstrating excellent discrimination capability across all classes
 
 ✅ **Cross-dataset**: Proposed model achieves **best accuracy (0.982)** and **best F1 (0.9823)** on BRISC2025, demonstrating superior generalization
 
@@ -203,6 +208,29 @@ seaborn
 ```
 
 **Hardware**: Kaggle T4 x2 GPU recommended (auto-detects & uses `MirroredStrategy` on multi-GPU setups; single-GPU compatible)
+
+---
+
+## 📖 Citation
+
+If you use this framework in research, please cite:
+
+```bibtex
+@dataset{nickparvar2021brain,
+  title={Brain Tumor MRI Dataset},
+  author={Nickparvar, Masoud},
+  url={https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset},
+  year={2021}
+}
+
+@dataset{brisc2025,
+  title={BRISC2025: Brain Tumor MRI Dataset},
+  url={https://www.kaggle.com/datasets/briscdataset/brisc2025/},
+  year={2025}
+}
+```
+
+Paper citation: *(Details to be added upon publication)*
 
 ---
 
