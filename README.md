@@ -160,7 +160,6 @@ brain-tumor-weighted-ensemble-xai/
 | ConvNeXt-Tiny | 0.951 | 0.9377 | 0.9946 |
 | Xception | 0.980 | 0.9803 | 0.9991 |
 | **🔗 Proposed (Weighted Fusion)** | **0.982** | **0.9823** | 0.9978 |
-<img width="960" height="720" alt="external_model_comparison" src="https://github.com/user-attachments/assets/326b642f-1ef3-4aef-aafa-d0d4af0fdf56" />
 
 ### Key Findings
 
