@@ -34,8 +34,8 @@ The ensemble combines three complementary branches with a learnable dynamic fusi
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     INPUT MRI IMAGE                              │
-│                    (224×224×3, Preprocessed)                     │
+│                     INPUT MRI IMAGE                             │
+│                    (224×224×3, Preprocessed)                    │
 └─────────────────────────┬───────────────────────────────────────┘
                           │
         ┌─────────────────┼─────────────────┐
@@ -57,22 +57,22 @@ The ensemble combines three complementary branches with a learnable dynamic fusi
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │    DYNAMIC WEIGHTED FUSION       │
+        │    DYNAMIC WEIGHTED FUSION      │
         │  (Learnable: w₁, w₂, w₃)        │
         │   Output = Σ wᵢ × Embeddingᵢ    │
-        └─────────────────┬─────────────────┘
+        └─────────────────┬───────────────┘
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │     FULLY CONNECTED LAYERS       │
-        │      (512 → 256 → 128 → 4)       │
-        └─────────────────┬─────────────────┘
+        │     FULLY CONNECTED LAYERS      │
+        │      (512 → 256 → 128 → 4)      │
+        └─────────────────┬───────────────┘
                           │
                           ▼
         ┌─────────────────────────────────┐
-        │       SOFTMAX OUTPUT             │
-        │   [Glioma | Meningioma |         │
-        │    Pituitary | No Tumor]         │
+        │       SOFTMAX OUTPUT            │
+        │   [Glioma | Meningioma |        │
+        │    Pituitary | No Tumor]        │
         └─────────────────────────────────┘
 ```
 
@@ -98,14 +98,7 @@ brain-tumor-weighted-ensemble-xai/
 ├── README.md                            # This file
 ├── notebooks/
 │   └── mri-brain.ipynb                  # Full end-to-end pipeline (Kaggle)
-├── outputs/                             # Generated at runtime (not in repo)
-│   ├── eda/                             # Class distribution, sample grids
-│   ├── baselines/<model_name>/          # Per-baseline: report, CM, ROC, loss, calibration
-│   ├── proposed/                        # Proposed model: report, CM, ROC, loss, calibration
-│   ├── xai/                             # XAI visualizations (Grad-CAM++, Score-CAM, etc.)
-│   ├── external_validation/             # BRISC2025 cross-dataset results
-│   └── summary/                         # Aggregated comparison & charts
-└── models/                              # Saved .keras checkpoints (best weights)
+├── MRI
 ```
 
 ---
@@ -208,29 +201,6 @@ seaborn
 ```
 
 **Hardware**: Kaggle T4 x2 GPU recommended (auto-detects & uses `MirroredStrategy` on multi-GPU setups; single-GPU compatible)
-
----
-
-## 📖 Citation
-
-If you use this framework in research, please cite:
-
-```bibtex
-@dataset{nickparvar2021brain,
-  title={Brain Tumor MRI Dataset},
-  author={Nickparvar, Masoud},
-  url={https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset},
-  year={2021}
-}
-
-@dataset{brisc2025,
-  title={BRISC2025: Brain Tumor MRI Dataset},
-  url={https://www.kaggle.com/datasets/briscdataset/brisc2025/},
-  year={2025}
-}
-```
-
-Paper citation: *(Details to be added upon publication)*
 
 ---
 
