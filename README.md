@@ -143,6 +143,10 @@ brain-tumor-weighted-ensemble-xai/
 | ConvNeXt-Tiny | 0.9431 | 0.9468 | 0.9431 | 0.9419 | 0.9896 | 0.9877 |
 | Xception | 0.9475 | 0.9503 | 0.9475 | 0.9463 | 0.9920 | 0.9889 |
 | **🔗 Proposed (Weighted Fusion)** | 0.9494 | 0.9528 | 0.9494 | 0.9481 | **0.9940** | **0.9902** |
+<img width="900" height="750" alt="proposed_confusion_matrix" src="https://github.com/user-attachments/assets/c3ee2def-7dff-4936-8610-ae8564dde312" />
+<img width="1050" height="900" alt="proposed_roc_auc_curve" src="https://github.com/user-attachments/assets/92cbb505-30dc-432b-bcb6-7dad78a7ea59" />
+<img width="1800" height="675" alt="proposed_loss_accuracy_curve" src="https://github.com/user-attachments/assets/6226806b-1e6b-46e1-8fd6-82e24c885940" />
+<img width="1050" height="900" alt="proposed_calibration_curve" src="https://github.com/user-attachments/assets/3b4fecfe-173d-449c-bda0-d0ce343d163c" />
 
 ### Cross-Dataset Validation
 **BRISC2025, 1,000 fully unseen images**
@@ -156,6 +160,7 @@ brain-tumor-weighted-ensemble-xai/
 | ConvNeXt-Tiny | 0.951 | 0.9377 | 0.9946 |
 | Xception | 0.980 | 0.9803 | 0.9991 |
 | **🔗 Proposed (Weighted Fusion)** | **0.982** | **0.9823** | 0.9978 |
+<img width="960" height="720" alt="external_model_comparison" src="https://github.com/user-attachments/assets/326b642f-1ef3-4aef-aafa-d0d4af0fdf56" />
 
 ### Key Findings
 
@@ -186,7 +191,7 @@ Four XAI methods applied to the ResNet50 branch's intermediate layers:
 Visualizations focus on ResNet50's conv blocks: `conv3_block4_out`, `conv4_block6_out`, `conv5_block3_out`
 
 > **Note**: Attention Rollout adapted for CNNs following standard literature (cumulative attention across layers)
-
+<img width="3000" height="5400" alt="all_samples_xai_grid" src="https://github.com/user-attachments/assets/c7bdcd53-d3dd-4c5e-ab30-934ea6885e44" />
 ---
 
 ## 📋 Requirements
