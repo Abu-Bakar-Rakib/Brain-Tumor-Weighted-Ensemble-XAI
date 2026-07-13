@@ -1,0 +1,9 @@
+model,accuracy,f1_macro,roc_auc_macro
+cnn,0.742,0.7227,0.9244
+efficientnetb0,0.949,0.9458,0.9962
+mobilenetv3,0.952,0.9482,0.9953
+resnet50,0.967,0.9608,0.9988
+convnext,0.951,0.9377,0.9946
+inception,0.966,0.9572,0.9986
+xception,0.98,0.9803,0.9991
+proposed_model,0.982,0.9823,0.9978
